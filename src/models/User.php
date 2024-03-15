@@ -51,6 +51,7 @@ class User
         $queryStatement = $this->db->query($query);
         return $queryStatement->fetchAll(PDO::FETCH_OBJ);
     }
+    
  /**
      * Methode qui permet de cheket si l'utilisateur existe par l'adresse mail
      *
@@ -67,6 +68,21 @@ class User
         // number = 0 si il n'y a pas de user identique
         return !empty($result);
     }
+        /**
+     * Permet de récupérer le hash du password et le token d'inscription
+     *
+     * @return object
+     */
+    public function getLoginInfo(): object
+    {
+        $query = 'SELECT `password`, `id`, `pseudo` FROM ' . $this->table
+            . ' WHERE `email` = :email';
+        $queryStatement = $this->db->prepare($query);
+        $queryStatement->bindValue(':email', $this->email, PDO::PARAM_STR);
+        $queryStatement->execute();
+        return $queryStatement->fetch(PDO::FETCH_OBJ);
+    }
+
 
     /**
      * Méthode pour enregistré dans la base de donner un nouveau utilisateur.
