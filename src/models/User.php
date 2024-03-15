@@ -51,7 +51,41 @@ class User
         $queryStatement = $this->db->query($query);
         return $queryStatement->fetchAll(PDO::FETCH_OBJ);
     }
+ /**
+     * Methode qui permet de cheket si l'utilisateur existe par l'adresse mail
+     *
+     * @return bool
+     */
+    public function checkUserExists(): bool
+    {
+        $query = 'SELECT `id` FROM ' . $this->table
+            . ' WHERE `email` = :email ';
+        $queryStatement = $this->db->prepare($query);
+        $queryStatement->bindValue(':email', $this->email, PDO::PARAM_STR);
+        $queryStatement->execute();
+        $result = $queryStatement->fetchAll(PDO::FETCH_OBJ);
+        // number = 0 si il n'y a pas de user identique
+        return !empty($result);
+    }
 
+    /**
+     * Méthode pour enregistré dans la base de donner un nouveau utilisateur.
+     *
+     *@return bool
+     */
+    public function saveUser(): bool
+    {
+        $query = 'INSERT INTO ' . $this->table . ' (`pseudo`, `email`, `password`) '
+            . ' VALUES (:pseudo, :email, :password)';
+
+        $queryStatement = $this->db->prepare($query);
+        $queryStatement->bindValue(':pseudo', $this->pseudo, PDO::PARAM_STR);
+        $queryStatement->bindValue(':email', $this->email, PDO::PARAM_STR);
+        $queryStatement->bindValue(':password', $this->password, PDO::PARAM_STR);
+        return $queryStatement->execute();
+    }
+
+    
     /**
      * Définit l'adresse email de l'utilisateur.
      *

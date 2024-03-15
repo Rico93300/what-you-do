@@ -22,29 +22,36 @@ integrity="sha384-9+PGKSqjRdkeAU7Eu4nkJU8RFaH8ace8HGXnkiKMP9I9Te0GJ4/km3L1Z8tXig
         <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary" style="background-color: rgba(0, 0, 0, 0.05);">
             <div class="container-fluid">
                 <a class="navbar-brand mt-2 mt-lg-0" href="/">
-                    <img src="public/img/What you do.png" height="60" />
+                    <img src="public/img/What you do.png" height="70" />WHAT YOU DO
                 </a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" href="/">Acceuil</a>
-                    </li>
+                    
  
+                  
+ 
+ 
+                        
+                <?php
+                if (isset($_SESSION['user'])) {
+                ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="/product">product list</a>
- 
- 
+                        <a class="nav-link" href="/logout">Déconnection</a>
+                    </li>
+                <?php
+                } else {
+                ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">Inscription</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/login">Connection</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/register">inscrire</a>
-                    </li>
- 
-                    <li class="nav-item">
-                        <a class="nav-link" href="/logout">Deconnection</a>
-                    </li>
- 
- 
-                </ul>
+                <?php } ?>
+            </ul>
             </div>
         </nav>
+
+      
+               
